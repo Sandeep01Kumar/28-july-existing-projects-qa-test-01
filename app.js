@@ -12,16 +12,8 @@ app.get('/good-evening', (req, res) => {
   res.type('text/plain').send('Good evening');
 });
 
-const notFound = (req, res) => {
+app.use((req, res) => {
   res.status(404).type('text/plain').send('Not Found\n');
-};
-
-app.use(notFound);
-
-const dispatch = app.handle.bind(app);
-
-app.handle = (req, res, next) => {
-  dispatch(req, res, next || (() => notFound(req, res)));
-};
+});
 
 module.exports = app;
